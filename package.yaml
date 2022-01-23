@@ -1,0 +1,43 @@
+name:                coursework
+version:             0.1.0.0
+license:             BSD3
+author:              "Diego Marmsoler"
+maintainer:          "d.marmsoler@exeter.ac.uk"
+copyright:           "2021 Diego Marmsoler"
+
+extra-source-files:
+- README.md
+
+dependencies:
+- base >= 4.7 && < 5
+
+library:
+  source-dirs: src
+  dependencies:
+    - containers
+
+executables:
+  coursework-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - coursework
+
+tests:
+  coursework-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - coursework
+    - containers
+    - tasty
+    - tasty-hunit
+    - tasty-quickcheck

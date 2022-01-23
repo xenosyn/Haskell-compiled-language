@@ -1,0 +1,82 @@
+exec (acomp a) (0,s,[]) == (length (acomp a), s, [aval a s])
+
+Proof:
+--TODO Task 4
+
+Analysis code for acomp
+
+acomp :: AExp -> [Instr]
+acomp (N num) = [LOADI num]
+acomp (V var) = [LOAD var]
+acomp (Plus a1 a2) = acomp a1 ++ acomp a2 ++ [ADD]
+
+Case analysis of acomp:
+let a be input 
+
+acomp a
+
+Base Case 1 : a = N Int
+acomp a
+[applying acomp] = [LOAD Int]
+
+Base Case 2 : a = V Char
+acomp a
+[applying accomp] = [LOAD Var]
+
+Inductive Case 3 : a = Plus (V Char || N Int)  (V Char || N Int) && b = [LOADI Int || LOAD Char]
+acomp a
+[applying accomp] = acomp (V Char || N Int) ++ acomp (V Char || N Int) ++ [ADD]
+[evaluating recall of acomp] = b_1 ++ b_2 ++ ADD
+[applying ++] = [b_1,b_2,ADD]
+
+
+
+
+Case analysis of aval:
+
+Analysis code for aval
+
+aval :: AExp -> State -> Val
+aval (V var) state = removeMaybe (Map.lookup var state)
+aval (N num) state = num
+aval (Plus a1 a2) state = aval a1 state + aval a2 state
+
+Case analysis of acomp:
+let a be input 
+
+aval a
+
+Base Case 1 : a = N Int
+aval a
+[applying aval] = Int
+
+Base Case 2 : a = V Char
+aval a
+[applying aval] = Char
+
+Inductive Case 3 : a = Plus (V Char || N Int)  (V Char || N Int) state
+let b_1 and b_2 be Ints.
+[applying aval]                = aval (V Char || N Int) state + (V Char || N Int) state
+[evaluating by recalling aval] = b_1 + b_2
+[applying +]                   = result
+
+
+
+removeMaybe :: Maybe Int -> Int
+removeMaybe (Just i) = i
+
+Analysing Machine Instr from compilation of Plus
+exec [b_1,b_2,ADD] (0,state,[])
+[Start]                                                 = [b_1,b_2,ADD] (0,state,[])
+[Loads B_1 into stack from either state or input]       = [b_2,ADD] (1,state,[b_1])
+[Loads B_2 into stack from either state or input]       = [ADD] (2,state,[b_1,b_2)
+[Executes ADD which pops b_1 and b_2 and returns result = [] (3,state,[result])
+[Finishes with Base Case for exec]                      = [] (3,state,[result])
+
+Comparison of state of Plus from aval and acomp
+exec (acomp a) (0,s ,[]) == (length (acomp a),s,[aval a s ])
+
+(3,state,[result]) == (3,state,[result])
+
+
+
