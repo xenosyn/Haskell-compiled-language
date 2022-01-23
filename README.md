@@ -1,6 +1,6 @@
 # ECM2418 Coursework 2021
 
-This is the template project for the ECM2418 coursework for 2021.
+This is project that I had to build for my Computers , Languages and representations module
 It consists of three folders:
 - *src* contains templates for the three main modules: Compiler.hs, Interpreter.hs, and StackMachine.hs.
 - *test* contains a simple testsuite which allows you to check that your code satisfies minimum criteria.
@@ -9,8 +9,6 @@ It consists of three folders:
 In addition the project contains three configuration files:
 - *package.yaml* to describe project dependencies
 - *stack.yaml* to describe execution options
-
-For your assignment you do **only** need to modify files in *src* and *app*. Do **not** change any other files.
 
 The project is setup to be used with the Haskell Tool [Stack](https://docs.haskellstack.org/en/stable/README/) which is a cross-platform program for developing Haskell projects.
 
